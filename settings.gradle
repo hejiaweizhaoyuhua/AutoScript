@@ -16,3 +16,4 @@ rootProject.name = "AutoScript"
 include ':app'
 include ':TextRecognition'
 include ':library'
+include ':AccessibilityLib'

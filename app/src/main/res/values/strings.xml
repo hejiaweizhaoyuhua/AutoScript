@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AutoScript</string>
+
+    <string name="accessibility">无障碍服务</string>
 </resources>

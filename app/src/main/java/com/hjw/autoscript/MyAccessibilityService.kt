@@ -14,8 +14,6 @@ class MyAccessibilityService : AccessibilityService() {
 
     override fun onAccessibilityEvent(p0: AccessibilityEvent?) {
         Log.i(tag, "onAccessibilityEvent")
-
-
     }
 
     override fun onInterrupt() {
