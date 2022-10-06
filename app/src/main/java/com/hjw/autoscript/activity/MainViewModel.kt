@@ -4,7 +4,5 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() {
-    fun isServiceOn(context: Context) {
 
-    }
 }
