@@ -41,6 +41,8 @@
                 android:resource="@xml/accessibility" />
         </service>
 
+        <service android:name=".service.ScreenCaptureService" />
+
     </application>
 
 </manifest>
