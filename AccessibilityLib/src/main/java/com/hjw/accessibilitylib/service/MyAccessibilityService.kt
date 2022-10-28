@@ -1,14 +1,10 @@
-package com.hjw.autoscript
+package com.hjw.accessibilitylib.service
 
 import android.accessibilityservice.AccessibilityService
-import android.media.ImageReader
 import android.util.Log
-import android.view.Display
 import android.view.accessibility.AccessibilityEvent
-import com.hjw.accessibilitylib.AccessibilityHelper
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.functions.Consumer
 import java.util.concurrent.TimeUnit
 
 class MyAccessibilityService : AccessibilityService() {

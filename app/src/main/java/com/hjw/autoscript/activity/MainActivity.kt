@@ -5,17 +5,12 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.lifecycleScope
 import com.hjw.accessibilitylib.AccessibilityHelper
 import com.hjw.accessibilitylib.ServiceHelper
 import com.hjw.accessibilitylib.util.AccessibilityServiceUtil
-import com.hjw.autoscript.MyAccessibilityService
+import com.hjw.accessibilitylib.service.MyAccessibilityService
 import com.hjw.autoscript.R
 import com.hjw.autoscript.databinding.ActivityMainBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
