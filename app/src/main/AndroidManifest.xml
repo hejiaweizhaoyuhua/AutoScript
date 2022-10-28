@@ -42,11 +42,6 @@
                 android:resource="@xml/accessibility" />
         </service>
 
-        <service
-            android:name=".service.ScreenCaptureService"
-            android:enabled="true"
-            android:foregroundServiceType="mediaProjection" />
-
     </application>
 
 </manifest>

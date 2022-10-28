@@ -1,4 +1,4 @@
-package com.hjw.autoscript.service
+package com.hjw.accessibilitylib.service
 
 import android.app.*
 import android.content.Context
@@ -11,10 +11,10 @@ import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import com.blankj.utilcode.util.LogUtils
 import com.hjw.accessibilitylib.AccessibilityHelper
-import com.hjw.autoscript.R
+import com.hjw.accessibilitylib.R
 import com.hjw.library.extension.Extension.default
-
 
 class ScreenCaptureService : Service() {
     private val tag = javaClass.simpleName
@@ -34,6 +34,7 @@ class ScreenCaptureService : Service() {
     }
 
     private fun initMediaProjection(intent: Intent?) {
+        LogUtils.i("initMediaProjection!!!")
         val resultCode = intent?.getIntExtra(INTENT_CODE, -1).default()
         val data = intent?.getParcelableExtra<Intent>(INTENT_DATA)
 
@@ -55,43 +56,39 @@ class ScreenCaptureService : Service() {
     }
 
     private fun createNotification() {
+        // 适配8.0及以上 创建渠道
+        val mNormalNotificationId = 1001
+        val channelId = "channel_id_1001"
+        val channelName = "channel_name_screen_capture"
+
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            //Call Start foreground with notification
-            val notificationIntent = Intent(this, ScreenCaptureService::class.java)
-            val pendingIntent = PendingIntent.getActivity(
-                this,
-                1,
-                notificationIntent,
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-                    PendingIntent.FLAG_IMMUTABLE
-                else
-                    PendingIntent.FLAG_ONE_SHOT
-            )
-            val notificationBuilder: NotificationCompat.Builder =
-                NotificationCompat.Builder(this, "channel_id_1001")
-                    .setLargeIcon(
-                        BitmapFactory.decodeResource(
-                            resources,
-                            R.drawable.ic_launcher_foreground
-                        )
-                    )
-                    .setSmallIcon(R.drawable.ic_launcher_foreground)
-                    .setContentTitle("正在检测游戏状态")
-                    .setContentIntent(pendingIntent)
-            val notification = notificationBuilder.build()
             val channel = NotificationChannel(
-                "channel_id_1001",
-                "channel_name_screen_capture",
+                channelId, channelName,
                 NotificationManager.IMPORTANCE_DEFAULT
-            )
-            channel.description = "正在检测游戏状态"
-            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            ).apply {
+                description = "正在检测游戏状态"
+            }
             notificationManager.createNotificationChannel(channel)
-            startForeground(
-                1001,
-                notification
-            ) //必须使用此方法显示通知，不能使用notificationManager.notify，否则还是会报上面的错误
         }
+        // 点击意图
+        val intent = Intent(this, ScreenCaptureService::class.java)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        // 构建配置
+        val notificationBuilder: NotificationCompat.Builder =
+            NotificationCompat.Builder(this, channelId)
+                .setLargeIcon(
+                    BitmapFactory.decodeResource(
+                        resources,
+                        R.mipmap.ic_launcher
+                    )
+                )
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("正在检测游戏状态")
+                .setContentIntent(pendingIntent)
+        val notification = notificationBuilder.build()
+        // 发起通知
+        startForeground(mNormalNotificationId, notification)
     }
 
     fun startCapture(): Bitmap? {

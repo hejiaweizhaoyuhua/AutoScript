@@ -1,30 +1,38 @@
 package com.hjw.accessibilitylib
 
-import android.app.ActivityManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.provider.Settings
+import android.content.ServiceConnection
+import android.graphics.Bitmap
+import android.os.IBinder
+import androidx.appcompat.app.AppCompatActivity
+import com.blankj.utilcode.util.LogUtils
+import com.hjw.accessibilitylib.service.ScreenCaptureService
 
 object ServiceHelper {
-    fun isServiceOn(context: Context, className: String): Boolean {
-        val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        val runningServices = activityManager.getRunningServices(100)
-        if (runningServices.size <= 0) {
-            return false
+    private var screenCaptureService: ScreenCaptureService? = null
+
+    private val serviceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            LogUtils.i("onServiceConnected!!!")
+            screenCaptureService = (service as ScreenCaptureService.MyBinder).getService()
         }
 
-        runningServices.forEach {
-            if (it.service.className.contains(className)) {
-                return true
-            }
+        override fun onServiceDisconnected(name: ComponentName?) {
+            LogUtils.i("onServiceDisconnected!!!")
+            screenCaptureService = null
         }
-
-        return false
     }
 
-    fun jumpAccessibilityPage(context: Context) {
-        context.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        })
+    fun initCaptureService(context: Context, resultCode: Int, data: Intent?) {
+        context.bindService(Intent(context, ScreenCaptureService::class.java).apply {
+            putExtra(ScreenCaptureService.INTENT_CODE, resultCode)
+            putExtra(ScreenCaptureService.INTENT_DATA, data)
+        }, serviceConnection, AppCompatActivity.BIND_AUTO_CREATE)
+    }
+
+    fun startCapture(): Bitmap? {
+        return screenCaptureService?.startCapture()
     }
 }
