@@ -6,15 +6,18 @@ import android.accessibilityservice.GestureDescription
 import android.accessibilityservice.GestureDescription.StrokeDescription
 import android.app.Activity
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.ImageFormat
 import android.graphics.Path
+import android.graphics.PixelFormat
 import android.hardware.display.DisplayManager
 import android.hardware.display.VirtualDisplay
 import android.media.Image
 import android.media.ImageReader
 import android.media.projection.MediaProjection
 import android.media.projection.MediaProjectionManager
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ScreenUtils
 import java.nio.ByteBuffer
 
@@ -79,9 +82,14 @@ object AccessibilityHelper {
             imageReader = null
         }
 
+        // 计算截图大小~默认为720p
+        val actualWidth = 720
+        val actualHeight =
+            actualWidth * ScreenUtils.getScreenHeight() / ScreenUtils.getScreenWidth()
+
         imageReader = ImageReader.newInstance(
-            ScreenUtils.getScreenWidth(), ScreenUtils.getScreenHeight(),
-            ImageFormat.FLEX_RGBA_8888, 2
+            actualWidth, actualHeight,
+            PixelFormat.RGBA_8888, 2
         )
     }
 
@@ -90,7 +98,7 @@ object AccessibilityHelper {
             "screen",
             ScreenUtils.getScreenWidth(),
             ScreenUtils.getScreenHeight(),
-            ScreenUtils.getScreenDensity().toInt(),
+            Resources.getSystem().displayMetrics.densityDpi,
             DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
             imageReader?.surface,
             null, null

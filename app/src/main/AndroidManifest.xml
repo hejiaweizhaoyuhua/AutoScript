@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -41,7 +42,10 @@
                 android:resource="@xml/accessibility" />
         </service>
 
-        <service android:name=".service.ScreenCaptureService" />
+        <service
+            android:name=".service.ScreenCaptureService"
+            android:enabled="true"
+            android:foregroundServiceType="mediaProjection" />
 
     </application>
 

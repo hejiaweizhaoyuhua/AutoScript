@@ -8,13 +8,18 @@ import android.os.IBinder
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.blankj.utilcode.util.ImageUtils
+import com.blankj.utilcode.util.LogUtils
 import com.hjw.accessibilitylib.AccessibilityHelper
 import com.hjw.accessibilitylib.ServiceHelper
 import com.hjw.autoscript.MyAccessibilityService
 import com.hjw.autoscript.R
 import com.hjw.autoscript.databinding.ActivityMainBinding
 import com.hjw.autoscript.service.ScreenCaptureService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
@@ -24,10 +29,12 @@ class MainActivity : AppCompatActivity() {
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            LogUtils.i("onServiceConnected!!!")
             screenCaptureService = (service as ScreenCaptureService.MyBinder).getService()
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
+            LogUtils.i("onServiceDisconnected!!!")
             screenCaptureService = null
         }
     }
@@ -49,9 +56,16 @@ class MainActivity : AppCompatActivity() {
                     this@MainActivity,
                     REQUEST_CODE_MEDIA_PROJECTION
                 )
+
+                lifecycleScope.launch(Dispatchers.Main) {
+                    delay(5000)
+                    val bitmap = screenCaptureService?.startCapture()
+                    LogUtils.i("bitmap=${bitmap?.byteCount}")
+                    screenshotView.setImageBitmap(bitmap)
+
+
+                }
             }
-
-
         }
     }
 
