@@ -51,5 +51,4 @@ dependencies {
 
     implementation project(":AccessibilityLib")
     implementation project(":library")
-    implementation project(":TextRecognition")
 }

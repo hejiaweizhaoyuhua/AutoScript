@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.Image
 import android.media.projection.MediaProjectionManager
 import android.os.Binder
 import android.os.Build
@@ -31,6 +32,12 @@ class ScreenCaptureService : Service() {
         fun getService(): ScreenCaptureService {
             return this@ScreenCaptureService
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        AccessibilityHelper.releaseCapture()
     }
 
     private fun initMediaProjection(intent: Intent?) {
@@ -91,7 +98,7 @@ class ScreenCaptureService : Service() {
         startForeground(mNormalNotificationId, notification)
     }
 
-    fun startCapture(): Bitmap? {
+    fun startCaptureBitmap(): Bitmap? {
         return AccessibilityHelper.cutoutFrame()
     }
 

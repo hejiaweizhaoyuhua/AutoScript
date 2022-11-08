@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.blankj.utilcode.util.ToastUtils
 import com.hjw.accessibilitylib.AccessibilityHelper
 import com.hjw.accessibilitylib.ServiceHelper
 import com.hjw.accessibilitylib.util.AccessibilityServiceUtil
@@ -29,10 +30,18 @@ class MainActivity : AppCompatActivity() {
 
             // 启动截屏服务，首先申请权限
             startScript.setOnClickListener {
-                AccessibilityHelper.startCaptureIntent(
-                    this@MainActivity,
-                    REQUEST_CODE_MEDIA_PROJECTION
-                )
+                if (AccessibilityServiceUtil.isServiceOn(
+                        this@MainActivity,
+                        MyAccessibilityService::class.java.name
+                    )
+                ) {
+                    AccessibilityHelper.startCaptureIntent(
+                        this@MainActivity,
+                        REQUEST_CODE_MEDIA_PROJECTION
+                    )
+                } else {
+                    ToastUtils.showShort("请先开始无障碍服务")
+                }
             }
         }
     }

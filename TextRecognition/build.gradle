@@ -42,4 +42,6 @@ dependencies {
     // 文字识别库
     // To recognize Chinese script
     implementation 'com.google.mlkit:text-recognition-chinese:16.0.0-beta6'
+
+    implementation project(":library")
 }

@@ -5,10 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.graphics.Bitmap
+import android.media.Image
 import android.os.IBinder
 import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.LogUtils
 import com.hjw.accessibilitylib.service.ScreenCaptureService
+import java.nio.ByteBuffer
 
 object ServiceHelper {
     private var screenCaptureService: ScreenCaptureService? = null
@@ -32,7 +34,11 @@ object ServiceHelper {
         }, serviceConnection, AppCompatActivity.BIND_AUTO_CREATE)
     }
 
-    fun startCapture(): Bitmap? {
-        return screenCaptureService?.startCapture()
+    fun startCaptureBitmap(): Bitmap? {
+        return screenCaptureService?.startCaptureBitmap()
+    }
+
+    fun isStartScript(): Boolean {
+        return screenCaptureService != null
     }
 }

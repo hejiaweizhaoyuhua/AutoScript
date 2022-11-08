@@ -80,13 +80,9 @@ object AccessibilityHelper {
             imageReader = null
         }
 
-        // 计算截图大小~默认为720p
-//        val actualWidth = 720
-//        val actualHeight =
-//            actualWidth * ScreenUtils.getScreenHeight() / ScreenUtils.getScreenWidth()
-
         imageReader = ImageReader.newInstance(
-            ScreenUtils.getScreenWidth(), ScreenUtils.getScreenHeight(),
+            ScreenUtils.getScreenWidth(),
+            ScreenUtils.getScreenHeight(),
             PixelFormat.RGBA_8888, 2
         )
     }
@@ -117,10 +113,11 @@ object AccessibilityHelper {
         )
         bitmap.copyPixelsFromBuffer(buffer)
         image.close()
+
         return bitmap
     }
 
-    fun release() {
+    fun releaseCapture() {
         if (imageReader != null) {
             imageReader?.close()
             imageReader = null
