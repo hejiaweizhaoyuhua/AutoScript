@@ -2,14 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
 
     <application>
-        <service
-            android:name=".service.ScreenCaptureService"
-            android:enabled="true"
-            android:foregroundServiceType="mediaProjection" />
-
         <service
             android:name=".service.MyAccessibilityService"
             android:exported="true"

@@ -71,4 +71,6 @@ object TextRecognitionHelper {
                 Log.e(tag, "文字识别错误：", it)
             }
     }
+
+
 }

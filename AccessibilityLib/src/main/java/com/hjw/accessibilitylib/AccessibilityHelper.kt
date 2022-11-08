@@ -21,9 +21,6 @@ import java.nio.ByteBuffer
 
 
 object AccessibilityHelper {
-    private var imageReader: ImageReader? = null
-    private var virtualDisplay: VirtualDisplay? = null
-
     fun click(service: AccessibilityService, x: Float, y: Float) {
         val builder = GestureDescription.Builder()
         val path = Path()
@@ -31,7 +28,7 @@ object AccessibilityHelper {
         path.lineTo(x, y)
         builder.addStroke(StrokeDescription(path, 0, 1))
         val gesture = builder.build()
-        service.dispatchGesture(gesture, object : AccessibilityService.GestureResultCallback() {
+        service.dispatchGesture(gesture, object : GestureResultCallback() {
             override fun onCompleted(gestureDescription: GestureDescription?) {
                 super.onCompleted(gestureDescription)
             }
@@ -65,67 +62,5 @@ object AccessibilityHelper {
                 super.onCancelled(gestureDescription)
             }
         }, null)
-    }
-
-    fun startCaptureIntent(activity: Activity, requestCode: Int) {
-        val mediaProjectionManager =
-            activity.getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
-        val intent = mediaProjectionManager.createScreenCaptureIntent()
-        activity.startActivityForResult(intent, requestCode)
-    }
-
-    fun initImageLoader() {
-        if (imageReader != null) {
-            imageReader?.close()
-            imageReader = null
-        }
-
-        imageReader = ImageReader.newInstance(
-            ScreenUtils.getScreenWidth(),
-            ScreenUtils.getScreenHeight(),
-            PixelFormat.RGBA_8888, 2
-        )
-    }
-
-    fun initVirtualDisplay(mediaProjection: MediaProjection) {
-        virtualDisplay = mediaProjection.createVirtualDisplay(
-            "screen",
-            ScreenUtils.getScreenWidth(),
-            ScreenUtils.getScreenHeight(),
-            Resources.getSystem().displayMetrics.densityDpi,
-            DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
-            imageReader?.surface,
-            null, null
-        )
-    }
-
-    fun cutoutFrame(): Bitmap? {
-        val image: Image = imageReader?.acquireLatestImage() ?: return null
-        val width: Int = image.width
-        val height: Int = image.height
-        val planes: Array<Image.Plane> = image.planes
-        val buffer: ByteBuffer = planes[0].buffer
-        val pixelStride: Int = planes[0].pixelStride
-        val rowStride: Int = planes[0].rowStride
-        val rowPadding = rowStride - pixelStride * width
-        val bitmap = Bitmap.createBitmap(
-            width + rowPadding / pixelStride, height, Bitmap.Config.ARGB_8888
-        )
-        bitmap.copyPixelsFromBuffer(buffer)
-        image.close()
-
-        return bitmap
-    }
-
-    fun releaseCapture() {
-        if (imageReader != null) {
-            imageReader?.close()
-            imageReader = null
-        }
-
-        if (virtualDisplay != null) {
-            virtualDisplay?.release()
-            virtualDisplay = null
-        }
     }
 }

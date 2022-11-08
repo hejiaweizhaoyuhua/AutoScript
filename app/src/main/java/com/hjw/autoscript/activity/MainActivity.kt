@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.blankj.utilcode.util.ToastUtils
 import com.hjw.accessibilitylib.AccessibilityHelper
-import com.hjw.accessibilitylib.ServiceHelper
 import com.hjw.accessibilitylib.util.AccessibilityServiceUtil
 import com.hjw.accessibilitylib.service.MyAccessibilityService
 import com.hjw.autoscript.R
 import com.hjw.autoscript.databinding.ActivityMainBinding
+import com.hjw.screencapture.ScreenCaptureHelper
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                         MyAccessibilityService::class.java.name
                     )
                 ) {
-                    AccessibilityHelper.startCaptureIntent(
+                    ScreenCaptureHelper.startCaptureIntent(
                         this@MainActivity,
                         REQUEST_CODE_MEDIA_PROJECTION
                     )
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
         // 启动截屏服务
         if (requestCode == REQUEST_CODE_MEDIA_PROJECTION && resultCode == RESULT_OK) {
-            ServiceHelper.initCaptureService(this, resultCode, data)
+            ScreenCaptureHelper.initCaptureService(this, resultCode, data)
         }
     }
 

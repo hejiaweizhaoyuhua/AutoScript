@@ -1,21 +1,22 @@
-package com.hjw.accessibilitylib.service
+package com.hjw.screencapture.service
 
-import android.app.*
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.media.Image
 import android.media.projection.MediaProjectionManager
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.blankj.utilcode.util.LogUtils
-import com.hjw.accessibilitylib.AccessibilityHelper
-import com.hjw.accessibilitylib.R
 import com.hjw.library.extension.Extension.default
+import com.hjw.screencapture.R
+import com.hjw.screencapture.ScreenCaptureHelper
 
 class ScreenCaptureService : Service() {
     private val tag = javaClass.simpleName
@@ -37,11 +38,11 @@ class ScreenCaptureService : Service() {
     override fun onDestroy() {
         super.onDestroy()
 
-        AccessibilityHelper.releaseCapture()
+        ScreenCaptureHelper.releaseCapture()
     }
 
     private fun initMediaProjection(intent: Intent?) {
-        LogUtils.i("initMediaProjection!!!")
+        Log.i(tag, "initMediaProjection!!!")
         val resultCode = intent?.getIntExtra(INTENT_CODE, -1).default()
         val data = intent?.getParcelableExtra<Intent>(INTENT_DATA)
 
@@ -58,8 +59,8 @@ class ScreenCaptureService : Service() {
             return
         }
 
-        AccessibilityHelper.initImageLoader()
-        AccessibilityHelper.initVirtualDisplay(mediaProjection)
+        ScreenCaptureHelper.initImageLoader()
+        ScreenCaptureHelper.initVirtualDisplay(mediaProjection)
     }
 
     private fun createNotification() {
@@ -99,7 +100,7 @@ class ScreenCaptureService : Service() {
     }
 
     fun startCaptureBitmap(): Bitmap? {
-        return AccessibilityHelper.cutoutFrame()
+        return ScreenCaptureHelper.cutoutFrame()
     }
 
     companion object {
