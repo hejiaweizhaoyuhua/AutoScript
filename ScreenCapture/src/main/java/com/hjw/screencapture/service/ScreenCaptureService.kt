@@ -99,10 +99,6 @@ class ScreenCaptureService : Service() {
         startForeground(mNormalNotificationId, notification)
     }
 
-    fun startCaptureBitmap(): Bitmap? {
-        return ScreenCaptureHelper.cutoutFrame()
-    }
-
     companion object {
         const val INTENT_DATA = "data"
         const val INTENT_CODE = "code"

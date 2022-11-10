@@ -46,10 +46,6 @@ object ScreenCaptureHelper {
         }, serviceConnection, AppCompatActivity.BIND_AUTO_CREATE)
     }
 
-    fun startCaptureBitmap(): Bitmap? {
-        return screenCaptureService?.startCaptureBitmap()
-    }
-
     fun isStartScript(): Boolean {
         return screenCaptureService != null
     }

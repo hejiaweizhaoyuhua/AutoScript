@@ -24,38 +24,7 @@ object TextRecognitionHelper {
         TextRecognition.getClient(ChineseTextRecognizerOptions.Builder().build())
 
     fun recognize(bitmap: Bitmap) {
-        Observable.create {
-            // 超过720P，开始缩放成720P
-            val resultBitmap: Bitmap = if (bitmap.width > 720) {
-                val targetWidth = 720
-                val targetHeight = bitmap.height * targetWidth / bitmap.width
-                ImageUtils.scale(bitmap, targetWidth, targetHeight)
-            } else {
-                bitmap
-            }
-
-            it.onNext(resultBitmap)
-            it.onComplete()
-        }
-            .subscribeOn(Schedulers.computation())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<Bitmap> {
-                override fun onSubscribe(d: Disposable) {
-
-                }
-
-                override fun onNext(t: Bitmap) {
-                    recognizeInner(bitmap)
-                }
-
-                override fun onError(e: Throwable) {
-
-                }
-
-                override fun onComplete() {
-
-                }
-            })
+        recognizeInner(bitmap)
     }
 
     private fun recognizeInner(bitmap: Bitmap) {
@@ -71,6 +40,4 @@ object TextRecognitionHelper {
                 Log.e(tag, "文字识别错误：", it)
             }
     }
-
-
 }
