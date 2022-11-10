@@ -15,7 +15,19 @@ object GameLogicController {
         accessibilityService = null
     }
 
-    fun startCapture() {
+    fun startScript() {
+
+    }
+
+    fun stopScript() {
+
+    }
+
+    fun pauseScript() {
+
+    }
+
+    private fun checkIsInTheGame() {
 
     }
 }
