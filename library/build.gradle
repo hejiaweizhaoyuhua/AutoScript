@@ -47,4 +47,6 @@ dependencies {
 
     // https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/README-CN.md
     api 'com.blankj:utilcodex:1.31.1'
+
+    api 'com.google.android.flexbox:flexbox:3.0.0'
 }

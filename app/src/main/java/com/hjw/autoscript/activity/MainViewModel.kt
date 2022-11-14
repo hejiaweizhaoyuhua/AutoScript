@@ -1,8 +1,11 @@
 package com.hjw.autoscript.activity
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
+import com.blankj.utilcode.util.SPUtils
+import com.hjw.autoscript.utils.PreferenceUtils
 
 class MainViewModel : ViewModel() {
-
+    fun saveDanrenPlan(isEnable: Boolean) {
+        PreferenceUtils.saveDanrenPlan(isEnable)
+    }
 }

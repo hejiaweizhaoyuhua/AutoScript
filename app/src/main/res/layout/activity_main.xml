@@ -53,12 +53,240 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:checked="true"
+                    android:text="完成后自动退出游戏"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/plan_danren"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="单人玩法"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:dividerDrawable="@drawable/divider"
+                    app:flexDirection="row"
+                    app:flexWrap="wrap"
+                    app:showDivider="end|middle">
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/item_shimen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="师门任务"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/item_baotu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="宝图任务"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/item_fengyao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="江南封妖"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/item_chumo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="除魔任务"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/item_yunbiao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="运镖任务"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/item_bangpai_daily"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="帮派日常"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/item_paoshang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="帮派跑商"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/item_xiulian"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="皇城试炼"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/item_qiyuan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="帮派祈愿"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/item_leitai"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="擂台争霸"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/item_mijing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="蜃龙迷境"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/item_guiwang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="鬼王令"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/item_wabaotu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="挖宝图"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/plan_one_dragon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="一条龙(选择一条龙请先组好队)"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:dividerDrawable="@drawable/divider"
+                    app:flexDirection="row"
+                    app:flexWrap="wrap"
+                    app:showDivider="end|middle">
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/one_dragon_item_fengyao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="江南封妖"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/one_dragon_item_zhuogui"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="除魔任务"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/one_dragon_item_fuben50"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="50级副本（地府还魂）"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/one_dragon_item_fuben50_jingying"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="50级精英副本（地府还魂）"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/one_dragon_item_fuben75"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="75级副本（荆棘岭迷踪）"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/one_dragon_item_fuben75_jingying"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="75级精英副本（荆棘岭迷踪）"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/one_dragon_item_fuben100"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="100级副本（倩女幽魂）"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/one_dragon_item_fuben100_jingying"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="100级精英副本（倩女幽魂）"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                </com.google.android.flexbox.FlexboxLayout>
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/screenshot_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:adjustViewBounds="true" />
+                    android:adjustViewBounds="true"
+                    android:visibility="gone" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
