@@ -5,13 +5,13 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.hjw.accessibilitylib.util.AccessibilityServiceUtil
 import com.hjw.accessibilitylib.service.MyAccessibilityService
+import com.hjw.accessibilitylib.util.AccessibilityServiceUtil
 import com.hjw.autoscript.R
 import com.hjw.autoscript.databinding.ActivityMainBinding
 import com.hjw.autoscript.utils.PreferenceUtils
+import com.hjw.gamelogic.GameLogicController
 import com.hjw.screencapture.ScreenCaptureHelper
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +31,10 @@ class MainActivity : AppCompatActivity() {
 
             // 启动截屏服务，首先申请权限
             startScript.setOnClickListener {
+                if (startScript.text.contains("脚本执行中")) {
+                    return@setOnClickListener
+                }
+
                 if (AccessibilityServiceUtil.isServiceOn(
                         this@MainActivity,
                         MyAccessibilityService::class.java.name
@@ -42,6 +46,7 @@ class MainActivity : AppCompatActivity() {
                     )
 
                     mViewModel.saveDanrenPlan(planDanren.isChecked)
+                    mViewModel.startScript()
                 } else {
                     ToastUtils.showShort("请先开始无障碍服务")
                 }
@@ -84,6 +89,12 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         checkService()
+
+        if (GameLogicController.isScriptStarting()) {
+            mBinding.startScript.text = "脚本执行中..."
+        } else {
+            mBinding.startScript.text = "开始执行脚本"
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -92,6 +103,8 @@ class MainActivity : AppCompatActivity() {
         // 启动截屏服务
         if (requestCode == REQUEST_CODE_MEDIA_PROJECTION && resultCode == RESULT_OK) {
             ScreenCaptureHelper.initCaptureService(this, resultCode, data)
+
+            mBinding.startScript.text = "脚本执行中..."
         }
     }
 

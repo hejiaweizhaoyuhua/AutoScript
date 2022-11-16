@@ -52,4 +52,5 @@ dependencies {
     implementation project(":AccessibilityLib")
     implementation project(":ScreenCapture")
     implementation project(":library")
+    implementation project(":GameLogic")
 }

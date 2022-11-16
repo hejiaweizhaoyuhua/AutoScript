@@ -41,4 +41,5 @@ dependencies {
 
     implementation project(":library")
     implementation project(":ScreenCapture")
+    implementation project(":TextRecognition")
 }
