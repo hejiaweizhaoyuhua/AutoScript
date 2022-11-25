@@ -11,6 +11,7 @@ import com.hjw.accessibilitylib.util.AccessibilityServiceUtil
 import com.hjw.autoscript.R
 import com.hjw.autoscript.databinding.ActivityMainBinding
 import com.hjw.autoscript.utils.PreferenceUtils
+import com.hjw.floatview.FloatViewManager
 import com.hjw.gamelogic.GameLogicController
 import com.hjw.screencapture.ScreenCaptureHelper
 
@@ -105,6 +106,22 @@ class MainActivity : AppCompatActivity() {
             ScreenCaptureHelper.initCaptureService(this, resultCode, data)
 
             mBinding.startScript.text = "脚本执行中..."
+
+//            val manager = FloatViewManager()
+//            manager.setItemListener(object : FloatViewManager.OnItemListener {
+//                override fun onPauseScript() {
+//
+//                }
+//
+//                override fun onStartScript() {
+//
+//                }
+//
+//                override fun onStopScript() {
+//
+//                }
+//            })
+//            manager.showWindow(this)
         }
     }
 

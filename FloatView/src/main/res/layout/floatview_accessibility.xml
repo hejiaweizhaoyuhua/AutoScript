@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/pause_script"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="暂停脚本" />
+
+    <Button
+        android:id="@+id/stop_script"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="停止脚本" />
+
+</LinearLayout>

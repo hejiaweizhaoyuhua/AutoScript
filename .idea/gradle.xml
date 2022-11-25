@@ -12,6 +12,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/AccessibilityLib" />
+            <option value="$PROJECT_DIR$/FloatView" />
             <option value="$PROJECT_DIR$/GameLogic" />
             <option value="$PROJECT_DIR$/ScreenCapture" />
             <option value="$PROJECT_DIR$/TextRecognition" />
