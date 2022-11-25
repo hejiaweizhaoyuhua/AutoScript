@@ -6,16 +6,13 @@ import android.graphics.Bitmap
 import android.text.TextUtils
 import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.google.mlkit.vision.text.Text
 import com.hjw.screencapture.ScreenCaptureHelper
 import com.hjw.textrecognition.TextRecognitionHelper
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
@@ -30,7 +27,8 @@ object GameLogicController {
 
     private var standingStr = ""
     private var standingTime = 0
-    private const val STANDING_MAX_TIME = 20
+    // 站立5分钟退出游戏
+    private const val STANDING_MAX_TIME = 20 * 5
 
     fun onAccessibilityConnect(service: AccessibilityService) {
         accessibilityService = service
@@ -52,6 +50,7 @@ object GameLogicController {
                         if (inGameDisposable != null) {
                             inGameDisposable?.dispose()
                         }
+
 
                         checkIsStanding(object : OnRecognizeWithTextListener {
                             override fun onSuccess(text: String) {
