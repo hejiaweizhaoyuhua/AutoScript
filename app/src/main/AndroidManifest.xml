@@ -28,6 +28,8 @@
                 android:value="" />
         </activity>
 
+        <service android:name=".service.StartScriptService" />
+
     </application>
 
 </manifest>

@@ -6,11 +6,5 @@ import com.hjw.autoscript.utils.PreferenceUtils
 import com.hjw.gamelogic.GameLogicController
 
 class MainViewModel : ViewModel() {
-    fun saveDanrenPlan(isEnable: Boolean) {
-        PreferenceUtils.saveDanrenPlan(isEnable)
-    }
 
-    fun startScript() {
-        GameLogicController.startScript()
-    }
 }

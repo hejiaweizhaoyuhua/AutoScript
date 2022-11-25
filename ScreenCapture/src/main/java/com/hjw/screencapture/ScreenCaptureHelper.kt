@@ -46,6 +46,10 @@ object ScreenCaptureHelper {
         }, serviceConnection, AppCompatActivity.BIND_AUTO_CREATE)
     }
 
+    fun stopCaptureService(context: Context) {
+        context.unbindService(serviceConnection)
+    }
+
     fun isStartScript(): Boolean {
         return screenCaptureService != null
     }

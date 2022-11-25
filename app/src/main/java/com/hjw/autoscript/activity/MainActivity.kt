@@ -1,23 +1,51 @@
 package com.hjw.autoscript.activity
 
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
+import android.content.ServiceConnection
 import android.os.Bundle
+import android.os.IBinder
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.hjw.accessibilitylib.service.MyAccessibilityService
 import com.hjw.accessibilitylib.util.AccessibilityServiceUtil
 import com.hjw.autoscript.R
 import com.hjw.autoscript.databinding.ActivityMainBinding
+import com.hjw.autoscript.service.StartScriptService
 import com.hjw.autoscript.utils.PreferenceUtils
 import com.hjw.floatview.FloatViewManager
 import com.hjw.gamelogic.GameLogicController
 import com.hjw.screencapture.ScreenCaptureHelper
+import com.hjw.screencapture.service.ScreenCaptureService
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
     private val mViewModel by viewModels<MainViewModel>()
+
+    private var startScriptService: StartScriptService? = null
+    private val serviceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            LogUtils.i("onServiceConnected!!!")
+            startScriptService = (service as StartScriptService.MyBinder).getService()
+
+            startScriptService?.apply {
+                // 配置菜单功能
+                saveDanrenPlan(mBinding.planDanren.isChecked)
+
+                // 开始脚本
+                startScript()
+            }
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            LogUtils.i("onServiceDisconnected!!!")
+            startScriptService = null
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +74,8 @@ class MainActivity : AppCompatActivity() {
                         REQUEST_CODE_MEDIA_PROJECTION
                     )
 
-                    mViewModel.saveDanrenPlan(planDanren.isChecked)
-                    mViewModel.startScript()
+                    // 启动脚本服务
+                    startScriptService()
                 } else {
                     ToastUtils.showShort("请先开始无障碍服务")
                 }
@@ -125,6 +153,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        ScreenCaptureHelper.stopCaptureService(this)
+        stopScriptService()
+    }
+
     /**
      * 检查无障碍服务
      */
@@ -135,6 +170,18 @@ class MainActivity : AppCompatActivity() {
             )
         ) "是" else "否"
         mBinding.alreadyStartService.text = "是否已经启用无障碍服务：${isServiceOn}"
+    }
+
+    private fun startScriptService() {
+        bindService(
+            Intent(this, StartScriptService::class.java),
+            serviceConnection,
+            Context.BIND_AUTO_CREATE
+        )
+    }
+
+    private fun stopScriptService() {
+        unbindService(serviceConnection)
     }
 
     companion object {

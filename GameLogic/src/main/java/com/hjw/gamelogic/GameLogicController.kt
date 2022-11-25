@@ -4,6 +4,7 @@ import android.accessibilityservice.AccessibilityService
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.text.TextUtils
+import android.widget.Toast
 import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -51,7 +52,6 @@ object GameLogicController {
                             inGameDisposable?.dispose()
                         }
 
-
                         checkIsStanding(object : OnRecognizeWithTextListener {
                             override fun onSuccess(text: String) {
                                 if (standingStr == text) {
@@ -79,7 +79,7 @@ object GameLogicController {
                     }
 
                     override fun onFail() {
-                        ToastUtils.showShort("请进入游戏")
+                        Toast.makeText(accessibilityService, "请进入游戏", Toast.LENGTH_SHORT).show()
                     }
                 })
             }
